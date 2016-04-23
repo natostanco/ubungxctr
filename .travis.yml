@@ -2,8 +2,7 @@ services: docker
 script:
 - export SAVE=$PWD
 - docker build -t ubungxdkr .
-- sudo ./docker-slim build --include-path /var/lib/nginx/tmp/ --http-probe --mount
-  ${SAVE}/nginx:/etc/nginx ubungxdkr
+- sudo ./docker-slim build --include-path /var/lib/nginx/tmp/ --http-probe --mount  ${SAVE}/nginx:/etc/nginx ubungxdkr
 before_deploy:
 - cd
 - docker save -o ubungxdkr.slim.tar ubungxdkr.slim
