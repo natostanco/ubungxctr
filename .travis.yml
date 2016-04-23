@@ -6,7 +6,7 @@ script:
 before_deploy:
 - cd
 - docker save -o ubungxdkr.slim.tar ubungxdkr.slim
-- xz -9 -c ubungxdkr.slim.tar.xz
+- xz -9 -c ubungxdkr.slim.tar > ubungxdkr.slim.tar.xz
 deploy:
   provider: releases
   api_key:
