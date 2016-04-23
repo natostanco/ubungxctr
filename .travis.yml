@@ -5,13 +5,18 @@ script:
 - sudo ./docker-slim build --continue-after probe --include-path /var/lib/nginx/tmp/ --http-probe --mount ${SAVE}/nginx:/etc/nginx ubungxdkr
 before_deploy:
 - cd
+- wget `curl -s https://api.github.com/repos/appc/docker2aci/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4` - dO2a.tar.gz
+- tar -zxf d2a.tar.gz && rm d2a.tar.gz && d2a=`find ./ -type d -name "docker2aci*"` && d2a=`basename $d2a && alias d2a='${PWD}/${d2a}/docker2aci'`
 - docker save -o ubungxdkr.slim.tar ubungxdkr.slim
+- d2a ubungxdkr.slim.tar
 - xz -9 -c ubungxdkr.slim.tar > ubungxdkr.slim.tar.xz
 deploy:
   provider: releases
   api_key:
     secure: SDzo9pHowsVMLaYsHHt6g3f1AxI1wWpnrQCh0f+46k3VH5nt44uA4sOUKzOOB66xG0e3y1A+vgkrthnf/+FIwAp5gfuwosR0AuQuBT+82CmKnuyZFQa/wxANGYlt7R9jlAiuf10nahbi/oDI6K+Rv8erVxY92STk0rGzEkqfSBhgQu6TwPRYPMVZ6Lm5gkhbyqIxL4nZttNkE/yj1j+6pmZUpWc0UIH9PRhjOfvVQ9uPabnY5VKfxdNzeIN+DTSMe2wkpzMZ86BqDFzkhxWk2gyVD2PZ3wGGZkss5iUK+uEiEj+dZt2uYxWqD3v9TMrv410PLHTBBqVKTqL0PvPqM7kmIM7ysFTVyfjHF+vMjgHOye9IruVPhUITfhwNwPT9jJzHe6Qzb/m59Bwxc1WZ+nId+ioPiW75D2pHTnMYheLLaXKvSYUpq0k1g0OOMG8yVAHWKt+FrJcDMMVQIMcKlzCcbhPOocmvEB+FlS+vlk/FyU9OOxSJRreY+nAaoTGGwYJ6oStk6m/5G4ONZUGwzIXyaAkkCaO6CR8ZUwzHFCaWjuS+hQ4T2S2Z2Mhy4N8um8jsQSlAyCrOHdv2+Kmx0rFNLv5MTuqaiXLLxnAct7gQfTX4ygIzFPodFzLgb7pHU5i4AmG+YynRarABuNczKZHDqEkOzFXbl6orkE6Nsqk=
-  file: ubungxdkr.slim.tar.xz
+  file: 
+- ubungxdkr.slim.tar.xz 
+- ubungxdkr.slim-latest.aci 
   skip_cleanup: true
   on:
     tags: true
