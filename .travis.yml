@@ -1,0 +1,21 @@
+language: c
+compiler: gcc
+services: docker
+#before_install:
+#  - 
+script:
+  - export SAVE=$PWD
+  - docker build -t ubungxdkr .
+  - sudo ./docker-slim build --include-path /var/lib/nginx/tmp/ --http-probe --mount ${SAVE}/nginx:/etc/nginx ubungxdkr
+before_deploy: 
+  - cd
+  - docker save -o ubungxdkr.slim.tar ubungxdkr.slim
+  - xz -9 -c ubungxdkr.slim.tar.xz
+deploy:
+  provider: releases
+  api_key:
+  file: ubungxdkr.slim.tar.xz
+  skip_cleanup: true
+  on:
+    tags: true
+
