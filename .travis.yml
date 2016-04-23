@@ -9,7 +9,8 @@ before_deploy:
 - wget `curl -s https://api.github.com/repos/appc/docker2aci/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4` -O d2a.tar.gz
 - tar -zxf d2a.tar.gz && rm d2a.tar.gz && d2a=`find ./ -type d -name "docker2aci*"` && d2a=`basename $d2a` && alias d2a='${PWD}/${d2a}/docker2aci'
 - docker save -o ubungxdkr.slim.tar ubungxdkr.slim
-- d2a ubungxdkr.slim.tar
+#- d2a ubungxdkr.slim.tar
+- ${PWD}/${d2a}/docker2aci ubungxdkr.slim.tar
 - xz -9 -c ubungxdkr.slim.tar > ubungxdkr.slim.tar.xz
 deploy:
   provider: releases
