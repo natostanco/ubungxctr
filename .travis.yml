@@ -3,8 +3,7 @@ services:
 script:
 - export SAVE=$PWD cnt="ubungxctr" slim=".slim"
 - docker build -t ubungxctr .
-- sudo ./docker-slim build --continue-after probe --include-path /var/lib/nginx/tmp/ --include-path /bin/bash --include-path /bin/sleep --include-path /bin/echo
-  --http-probe --mount ${SAVE}/nginx:/etc/nginx ubungxctr
+- ./scripts/slimmer.sh
 before_deploy:
 - cd
 - wget `curl -s https://api.github.com/repos/appc/docker2aci/releases | grep browser_download_url
