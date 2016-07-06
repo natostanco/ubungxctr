@@ -9,4 +9,6 @@ do
 find ${include[n]} | xargs -I {} ldd {} | awk '{print $3}' | grep '/' | sort -u | xargs -I {} touch {}
 sleep 2
 echo "$n"
-done<Paste>
+done
+
+nginx
