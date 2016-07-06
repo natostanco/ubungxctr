@@ -3,7 +3,7 @@ services:
 script:
 - export SAVE=$PWD cnt="ubungxctr" slim=".slim"
 - docker build -t ubungxctr .
-- sudo ./docker-slim build --continue-after probe --include-path /var/lib/nginx/tmp/
+- sudo ./docker-slim build --continue-after probe --include-path /var/lib/nginx/tmp/ --include-path /bin/bash --include-path /bin/sleep --include-path /bin/echo
   --http-probe --mount ${SAVE}/nginx:/etc/nginx ubungxctr
 before_deploy:
 - cd
